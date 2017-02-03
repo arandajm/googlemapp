@@ -15,6 +15,12 @@ export class AppComponent {
   //Start Position La Plata
   lat: number = -34.920901; 
   lng: number = -57.953794; //-34.920901, -57.953794
+  
+  //Values
+  markerName: string;
+  markerLat: string;
+  markerLng: string;
+  markerDraggable: boolean;
  
   //Markers
   markers: Marker[] = [
@@ -68,6 +74,24 @@ markerDragEnd(m: any, $event: any){
 
   var newLat = $event.coords.lat;
   var newLng = $event.coords.lng;
+}
+
+addMarker(){
+  console.log('Adding Marker');
+  var isDraggable;
+  if (this.markerDraggable) {
+    isDraggable=true;
+  } else {
+    isDraggable=false;
+  }
+  var newMarker = {
+  name: this.markerName,
+  lat: parseFloat(this.markerLat),
+  lng: parseFloat(this.markerLng),
+  draggable: isDraggable
+  } 
+
+  this.markers.push(newMarker);
 }
 
 }
