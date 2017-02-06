@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import {Marker} from './marker';
+import {MarkerService} from './services/marker.services'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [MarkerService]
 })
 
 export class AppComponent {
@@ -14,7 +16,7 @@ export class AppComponent {
 
   //Start Position La Plata
   lat: number = -34.920901; 
-  lng: number = -57.953794; //-34.920901, -57.953794
+  lng: number = -57.953794;
   
   //Values
   markerName: string;
@@ -23,10 +25,13 @@ export class AppComponent {
   markerDraggable: boolean;
  
   //Markers
+  markers: Marker[];
+
+/*  //Markers
   markers: Marker[] = [
   {
     name: 'Punto 1',
-    lat: -34.920901,
+    lat: -34.920901,  //-34.920901, -57.953794
     lng: -57.953794,
     draggable: true
   },
@@ -42,9 +47,11 @@ export class AppComponent {
     lng: -57.940850,
     draggable: true
   }
-];
+];*/
 
-constructor(){
+constructor(private _markerService: MarkerService){
+  //Get Markers from LocalStorage
+  this.markers = this._markerService.getMarkers();
 }
 
 clickedMarker(m: Marker, index: number){
@@ -92,6 +99,7 @@ addMarker(){
   } 
 
   this.markers.push(newMarker);
+  this._markerService.addMarker(newMarker);
 }
 
 }
