@@ -81,6 +81,8 @@ markerDragEnd(m: any, $event: any){
 
   var newLat = $event.coords.lat;
   var newLng = $event.coords.lng;
+
+  this._markerService.updateMarker(uptmarker,newLat, newLng);
 }
 
 addMarker(){
@@ -102,6 +104,17 @@ addMarker(){
   this._markerService.addMarker(newMarker);
 }
 
+deleteMarker(markerToDelete){
+  console.log('Removing Marker....');
+  //Recorremos la colecccion y encontramos el marcador a eliminar
+  for (var index = 0; index < this.markers.length; index++) {
+    if (this.markers[index].lat === markerToDelete.lat && this.markers[index].lng === markerToDelete.lng) {
+      this.markers.splice(index, 1);
+    } 
+  }
+
+  this._markerService.deleteMarker(markerToDelete);
+}
 }
 
 /*//Marker Type

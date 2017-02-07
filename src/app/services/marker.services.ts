@@ -25,4 +25,35 @@ export class MarkerService extends Init {
          //Actualizamos la lista en el localStorage
          localStorage.setItem('markers',JSON.stringify(markers));
      }
+
+    updateMarker(updateMarker, newLat, newLng){
+         //Recuperamos la lista de marcadores
+         var markers = JSON.parse(localStorage.getItem('markers'));
+         //Iteramos sobre la coleccion de marcadores para encontrar y modificar el seleccionado
+         markers.forEach(marker => {
+             if (marker.lat === updateMarker.lat && marker.lng === updateMarker.lng) {
+                 marker.lat = newLat;
+                 marker.lng = newLng;
+             }
+         });
+         
+         //Actualizamos la lista en el localStorage
+         localStorage.setItem('markers',JSON.stringify(markers));
+     }
+
+    deleteMarker(markerToDelete){
+     console.log('Removing Marker....');
+     //Recuperamos la lista de marcadores
+    var markers = JSON.parse(localStorage.getItem('markers'));
+    //Iteramos sobre la coleccion de marcadores para encontrar y modificar el seleccionado
+    //Recorremos la colecccion y encontramos el marcador a eliminar
+    for (var index = 0; index < markers.length; index++) {
+        if (markers[index].lat === markerToDelete.lat && markers[index].lng === markerToDelete.lng) {
+            markers.splice(index, 1);
+        } 
+    }
+         
+    //Actualizamos la lista en el localStorage
+    localStorage.setItem('markers',JSON.stringify(markers));
+}
 }
